@@ -2,6 +2,8 @@
 
 A compact, readable statusline for Claude Code.
 
+👉 项目主页：[qipeijun.github.io/claude-code-balanced-statusline](https://qipeijun.github.io/claude-code-balanced-statusline/)
+
 It shows the information that usually matters while coding:
 
 ```text
