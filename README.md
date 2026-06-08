@@ -2,12 +2,12 @@
 
 A compact, readable statusline for Claude Code.
 
-👉 项目主页：[qipeijun.github.io/claude-code-balanced-statusline](https://qipeijun.github.io/claude-code-balanced-statusline/)
+👉 [项目主页](https://qipeijun.github.io/claude-code-balanced-statusline/)
 
 It shows the information that usually matters while coding:
 
 ```text
-edu-resource-admin  [feature/v1.1.0]*  Ctx: 3%  +1/-0  deepseek-v4-pro  [max]
+claude-code-balanced-statusline  [feature/v1.1.0]*  Ctx: 3%  +1/-0  deepseek-v4-pro  [max]
 ```
 
 ## Features
