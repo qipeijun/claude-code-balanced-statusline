@@ -13,8 +13,16 @@ claude-code-balanced-statusline  [feature/v1.1.0]*  Ctx: 3%  +1/-0  deepseek-v4-
 
 ## 快速开始
 
+GitHub：
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/qipeijun/claude-code-balanced-statusline/main/install.sh | bash
+```
+
+Gitee 镜像（GitHub 访问不稳定时）：
+
+```bash
+curl -fsSL https://gitee.com/qipeijun/claude-code-balanced-statusline/raw/main/install.sh | CLAUDE_STATUSLINE_RAW_BASE=https://gitee.com/qipeijun/claude-code-balanced-statusline/raw/main bash
 ```
 
 前提：已安装 `jq`。macOS 上 `brew install jq`，其他系统用对应包管理器。Git 可选，没有也不报错。
@@ -32,16 +40,28 @@ curl -fsSL https://raw.githubusercontent.com/qipeijun/claude-code-balanced-statu
 
 ## 安装
 
-**一行安装**（推荐）：
+**GitHub 一行安装**（推荐）：
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/qipeijun/claude-code-balanced-statusline/main/install.sh | bash
+```
+
+**Gitee 镜像一行安装**（GitHub 访问不稳定时）：
+
+```bash
+curl -fsSL https://gitee.com/qipeijun/claude-code-balanced-statusline/raw/main/install.sh | CLAUDE_STATUSLINE_RAW_BASE=https://gitee.com/qipeijun/claude-code-balanced-statusline/raw/main bash
 ```
 
 Windows：
 
 ```powershell
 powershell -c "irm https://raw.githubusercontent.com/qipeijun/claude-code-balanced-statusline/main/install.ps1 | iex"
+```
+
+Gitee 镜像：
+
+```powershell
+$env:CLAUDE_STATUSLINE_RAW_BASE="https://gitee.com/qipeijun/claude-code-balanced-statusline/raw/main"; irm https://gitee.com/qipeijun/claude-code-balanced-statusline/raw/main/install.ps1 | iex
 ```
 
 安装器会自动备份旧文件，只追加 `statusLine` 配置到 `~/.claude/settings.json`，不动你已有的其他字段。

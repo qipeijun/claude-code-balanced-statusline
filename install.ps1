@@ -1,12 +1,13 @@
 # Claude Code Balanced Statusline - Windows 安装器
 # 用法: powershell -ExecutionPolicy Bypass -File install.ps1
 # 一键: powershell -c "irm https://raw.githubusercontent.com/qipeijun/claude-code-balanced-statusline/main/install.ps1 | iex"
+# Gitee: $env:CLAUDE_STATUSLINE_RAW_BASE="https://gitee.com/qipeijun/claude-code-balanced-statusline/raw/main"; irm https://gitee.com/qipeijun/claude-code-balanced-statusline/raw/main/install.ps1 | iex
 
 $ErrorActionPreference = "Stop"
 
 $Repo = "qipeijun/claude-code-balanced-statusline"
 $Branch = "main"
-$RawBase = "https://raw.githubusercontent.com/$Repo/$Branch"
+$RawBase = if ($env:CLAUDE_STATUSLINE_RAW_BASE) { $env:CLAUDE_STATUSLINE_RAW_BASE } else { "https://raw.githubusercontent.com/$Repo/$Branch" }
 
 $ClaudeDir = Join-Path $env:USERPROFILE ".claude"
 $TargetScript = Join-Path $ClaudeDir "statusline.sh"

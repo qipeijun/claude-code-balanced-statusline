@@ -163,16 +163,28 @@
           </div>
 
           <div class="tab-panel active" id="panel-mac">
+            <p class="source-label">GitHub</p>
             <div class="oneliner">
               <code>curl -fsSL https://raw.githubusercontent.com/qipeijun/claude-code-balanced-statusline/main/install.sh | bash</code>
+              <button class="copy-btn" type="button" onclick="copyOneliner(this)">复制</button>
+            </div>
+            <p class="source-label">Gitee 镜像</p>
+            <div class="oneliner">
+              <code>curl -fsSL https://gitee.com/qipeijun/claude-code-balanced-statusline/raw/main/install.sh | CLAUDE_STATUSLINE_RAW_BASE=https://gitee.com/qipeijun/claude-code-balanced-statusline/raw/main bash</code>
               <button class="copy-btn" type="button" onclick="copyOneliner(this)">复制</button>
             </div>
             <p class="prereq">前提：<code>brew install jq</code>，或使用系统对应的包管理器安装 <code>jq</code>。Git 可选。</p>
           </div>
 
           <div class="tab-panel" id="panel-win">
+            <p class="source-label">GitHub</p>
             <div class="oneliner">
               <code>powershell -c "irm https://raw.githubusercontent.com/qipeijun/claude-code-balanced-statusline/main/install.ps1 | iex"</code>
+              <button class="copy-btn" type="button" onclick="copyOneliner(this)">复制</button>
+            </div>
+            <p class="source-label">Gitee 镜像</p>
+            <div class="oneliner">
+              <code>$env:CLAUDE_STATUSLINE_RAW_BASE="https://gitee.com/qipeijun/claude-code-balanced-statusline/raw/main"; irm https://gitee.com/qipeijun/claude-code-balanced-statusline/raw/main/install.ps1 | iex</code>
               <button class="copy-btn" type="button" onclick="copyOneliner(this)">复制</button>
             </div>
             <p class="prereq">

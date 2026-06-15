@@ -7,7 +7,7 @@ set -eu
 
 REPO="qipeijun/claude-code-balanced-statusline"
 BRANCH="main"
-RAW_BASE="https://raw.githubusercontent.com/${REPO}/${BRANCH}"
+RAW_BASE="${CLAUDE_STATUSLINE_RAW_BASE:-https://raw.githubusercontent.com/${REPO}/${BRANCH}}"
 
 target_dir="${HOME}/.claude"
 target_script="${target_dir}/statusline.sh"
@@ -42,9 +42,9 @@ if [ "$0" != "bash" ] && [ -f "$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)/stat
     src="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)/statusline.sh"
     info "从本地仓库安装"
 else
-    # 远端模式：从 GitHub 下载
+    # 远端模式：从 RAW_BASE 下载
     src="${target_script}.download.${backup_suffix}"
-    info "从 GitHub 下载 statusline.sh"
+    info "下载 statusline.sh"
     if command -v curl >/dev/null 2>&1; then
         curl -fsSL "${RAW_BASE}/statusline.sh" -o "$src" || err "下载失败，请检查网络连接"
     elif command -v wget >/dev/null 2>&1; then

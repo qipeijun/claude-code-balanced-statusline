@@ -702,6 +702,16 @@
 
   .tab-panel.active { display: block; }
 
+  .source-label {
+    margin: 14px 0 8px;
+    color: var(--yellow);
+    font-size: .72rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .source-label:first-child { margin-top: 0; }
+
   .oneliner {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
