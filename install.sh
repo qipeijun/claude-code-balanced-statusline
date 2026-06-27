@@ -9,9 +9,10 @@ REPO="qipeijun/claude-code-balanced-statusline"
 BRANCH="main"
 RAW_BASE="${CLAUDE_STATUSLINE_RAW_BASE:-https://raw.githubusercontent.com/${REPO}/${BRANCH}}"
 
-target_dir="${HOME}/.claude"
-target_script="${target_dir}/statusline.sh"
-settings_file="${target_dir}/settings.json"
+config_dir="${CLAUDE_CONFIG_DIR:-${HOME}/.claude}"
+script_dir="${XDG_DATA_HOME:-${HOME}/.local/share}/claude-code-balanced-statusline"
+target_script="${script_dir}/statusline.sh"
+settings_file="${config_dir}/settings.json"
 backup_suffix="$(date +%Y%m%d%H%M%S)"
 
 # ---- 颜色 ----
@@ -31,9 +32,9 @@ if ! command -v jq >/dev/null 2>&1; then
     exit 1
 fi
 
-# ---- 创建 ~/.claude/ ----
-if ! mkdir -p "$target_dir" 2>/dev/null; then
-    err "无法创建 ${target_dir}。请检查目录权限：ls -ld ${HOME}"
+# ---- 创建安装目录 ----
+if ! mkdir -p "$script_dir" "$config_dir" 2>/dev/null; then
+    err "无法创建安装目录。请检查目录权限：ls -ld ${HOME}"
 fi
 
 # ---- 获取 statusline.sh ----
@@ -61,13 +62,13 @@ if [ -f "$target_script" ]; then
 fi
 
 if ! install -m 755 "$src" "$target_script" 2>/dev/null; then
-    rm -f "$src"
-    err "写入 ${target_script} 失败。请检查目录权限：ls -ld ${target_dir}"
+    [ "$src" = "${target_script}.download.${backup_suffix}" ] && rm -f "$src"
+    err "写入 ${target_script} 失败。请检查目录权限：ls -ld ${script_dir}"
 fi
 ok "脚本 → ${target_script}"
 
 # 清理下载的临时文件
-[ "$src" != "${target_dir}/statusline.sh" ] && rm -f "$src"
+[ "$src" = "${target_script}.download.${backup_suffix}" ] && rm -f "$src"
 
 # ---- 写入 settings.json ----
 if [ -f "$settings_file" ]; then
@@ -84,7 +85,7 @@ if ! jq empty "$settings_file" 2>/dev/null; then
 fi
 
 tmp_file="${settings_file}.tmp.${backup_suffix}"
-if ! jq '.statusLine = {"type":"command","command":"~/.claude/statusline.sh"}' "$settings_file" > "$tmp_file" 2>/dev/null; then
+if ! jq --arg command "$target_script" '.statusLine = {"type":"command","command":$command}' "$settings_file" > "$tmp_file" 2>/dev/null; then
     err "写入 settings.json 失败，请检查文件是否可写。"
 fi
 mv "$tmp_file" "$settings_file"

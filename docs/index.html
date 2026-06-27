@@ -153,7 +153,7 @@
     <section class="content-band" id="install">
       <div class="section-head">
         <h2>安装就一行命令</h2>
-        <p>安装器会自动备份旧文件，只追加状态栏配置，不覆盖你已有的 <code>settings.json</code>。</p>
+        <p>安装器会自动备份旧文件，把脚本安装到稳定的用户数据目录，并只追加状态栏配置，不覆盖你已有的 <code>settings.json</code>。</p>
       </div>
       <div class="install-layout">
         <div class="install-panel">
@@ -196,15 +196,15 @@
         <div class="manual-panel">
           <h3>手动安装</h3>
           <pre class="code-block"><span class="cm"># 复制脚本</span>
-<span class="kw">mkdir</span> -p ~/.claude
-<span class="kw">cp</span> statusline.sh ~/.claude/statusline.sh
-<span class="kw">chmod</span> +x ~/.claude/statusline.sh
+<span class="kw">mkdir</span> -p ~/.local/share/claude-code-balanced-statusline
+<span class="kw">cp</span> statusline.sh ~/.local/share/claude-code-balanced-statusline/statusline.sh
+<span class="kw">chmod</span> +x ~/.local/share/claude-code-balanced-statusline/statusline.sh
 
-<span class="cm"># 然后在 ~/.claude/settings.json 里加上：</span>
+<span class="cm"># 然后在 ~/.claude/settings.json 里加上，command 请替换为你的真实绝对路径：</span>
 {
   <span class="str">"statusLine"</span>: {
     <span class="str">"type"</span>: <span class="str">"command"</span>,
-    <span class="str">"command"</span>: <span class="str">"~/.claude/statusline.sh"</span>
+    <span class="str">"command"</span>: <span class="str">"/Users/你的用户名/.local/share/claude-code-balanced-statusline/statusline.sh"</span>
   }
 }</pre>
         </div>

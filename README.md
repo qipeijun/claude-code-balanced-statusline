@@ -64,23 +64,23 @@ Gitee 镜像：
 $env:CLAUDE_STATUSLINE_RAW_BASE="https://gitee.com/qipeijun/claude-code-balanced-statusline/raw/main"; irm https://gitee.com/qipeijun/claude-code-balanced-statusline/raw/main/install.ps1 | iex
 ```
 
-安装器会自动备份旧文件，只追加 `statusLine` 配置到 `~/.claude/settings.json`，不动你已有的其他字段。
+安装器会自动备份旧文件，把脚本安装到稳定的用户数据目录，并只追加 `statusLine` 配置到 Claude Code 的 `settings.json`，不动你已有的其他字段。
 
 **手动安装**：
 
 ```bash
-mkdir -p ~/.claude
-cp statusline.sh ~/.claude/statusline.sh
-chmod +x ~/.claude/statusline.sh
+mkdir -p ~/.local/share/claude-code-balanced-statusline
+cp statusline.sh ~/.local/share/claude-code-balanced-statusline/statusline.sh
+chmod +x ~/.local/share/claude-code-balanced-statusline/statusline.sh
 ```
 
-然后在 `~/.claude/settings.json` 中加上：
+然后在 `~/.claude/settings.json` 中加上，`command` 请替换为你的真实绝对路径：
 
 ```json
 {
   "statusLine": {
     "type": "command",
-    "command": "~/.claude/statusline.sh"
+    "command": "/Users/你的用户名/.local/share/claude-code-balanced-statusline/statusline.sh"
   }
 }
 ```
