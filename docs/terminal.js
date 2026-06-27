@@ -18,6 +18,68 @@
     });
   }
 
+  (function runSignalCompression() {
+    const stage = document.getElementById('compressionStage');
+    const scanline = document.getElementById('compressionScanline');
+    const statusline = document.getElementById('terminalStatusline');
+    if (!stage || !scanline || !statusline) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fragments = Array.from(stage.querySelectorAll('.signal-fragment'));
+    const statusParts = new Map(
+      Array.from(statusline.querySelectorAll('[data-status-part]')).map((part) => [part.dataset.statusPart, part])
+    );
+
+    function statusTargetFor(fragment) {
+      const key = fragment.dataset.target;
+      if (key === 'add') return statusParts.get('add');
+      return statusParts.get(key);
+    }
+
+    function compressFragment(fragment, index) {
+      const target = statusTargetFor(fragment);
+      if (!target) return;
+
+      const from = fragment.getBoundingClientRect();
+      const to = target.getBoundingClientRect();
+      const dx = to.left + to.width / 2 - (from.left + from.width / 2);
+      const dy = to.top + to.height / 2 - (from.top + from.height / 2);
+
+      setTimeout(() => {
+        fragment.classList.add('is-detected');
+        target.classList.add('is-receiving');
+      }, index * 80);
+
+      setTimeout(() => {
+        fragment.style.transform = `translate3d(${dx}px, ${dy}px, 0) scale(.72)`;
+        fragment.style.filter = 'blur(1px) brightness(1.4)';
+        fragment.classList.add('is-compressed');
+      }, 120 + index * 80);
+
+      setTimeout(() => target.classList.remove('is-receiving'), 760 + index * 80);
+    }
+
+    if (reduceMotion || window.innerWidth < 640) {
+      stage.hidden = true;
+      return;
+    }
+
+    fragments.forEach((fragment, index) => {
+      setTimeout(() => fragment.classList.add('is-visible'), 520 + index * 90);
+    });
+
+    setTimeout(() => scanline.classList.add('is-scanning'), 1180);
+    setTimeout(() => {
+      scanline.classList.add('is-done');
+      fragments.forEach(compressFragment);
+    }, 1960);
+    setTimeout(() => statusline.classList.add('is-locked'), 3100);
+    setTimeout(() => {
+      stage.hidden = true;
+      statusline.classList.remove('is-locked');
+    }, 4200);
+  })();
+
   (function runTerminalSession() {
     const viewport = document.getElementById('terminalLogViewport');
     const el = document.getElementById('typing');
@@ -164,5 +226,5 @@
       setTimeout(() => statusline.classList.remove('is-refreshing'), 260);
     }
 
-    setInterval(refresh, 800);
+    setInterval(refresh, 3200);
   })();

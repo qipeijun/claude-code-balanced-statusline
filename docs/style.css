@@ -364,6 +364,92 @@
     opacity: .7;
   }
 
+  .compression-stage {
+    position: absolute;
+    inset: 36px 36px 96px;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .signal-fragment {
+    position: absolute;
+    left: var(--fx);
+    top: var(--fy);
+    max-width: min(310px, 42vw);
+    padding: 6px 10px;
+    border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+    border-radius: 7px;
+    color: var(--soft);
+    background: rgba(7, 10, 15, .74);
+    box-shadow: 0 0 0 rgba(85, 219, 230, 0);
+    font-size: .78rem;
+    line-height: 1.45;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translate3d(0, 8px, 0) scale(.98);
+    will-change: transform, opacity, filter;
+  }
+
+  .signal-fragment::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+    vertical-align: .08em;
+  }
+
+  .signal-fragment.is-visible {
+    opacity: .9;
+    transform: translate3d(0, 0, 0) scale(1);
+    transition: opacity 260ms cubic-bezier(.2, 0, 0, 1), transform 320ms cubic-bezier(.2, 0, 0, 1);
+  }
+
+  .signal-fragment.is-detected {
+    color: var(--white);
+    filter: brightness(1.22);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+
+  .signal-fragment.is-compressed {
+    opacity: 0;
+    transition:
+      opacity 520ms cubic-bezier(.3, 0, 1, 1),
+      transform 620ms cubic-bezier(.05, .7, .1, 1),
+      filter 620ms cubic-bezier(.05, .7, .1, 1);
+  }
+
+  .compression-scanline {
+    position: absolute;
+    left: 36px;
+    right: 36px;
+    top: 62px;
+    z-index: 4;
+    height: 1px;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(90deg, transparent, rgba(121, 246, 255, .95), transparent);
+    box-shadow: 0 0 18px rgba(85, 219, 230, .42);
+    transform: translateY(0);
+    will-change: transform, opacity;
+  }
+
+  .compression-scanline.is-scanning {
+    opacity: .85;
+    transform: translateY(318px);
+    transition:
+      transform 760ms cubic-bezier(.4, 0, .2, 1),
+      opacity 160ms ease;
+  }
+
+  .compression-scanline.is-done {
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+
   .terminal-grid {
     display: grid;
     gap: 14px;
@@ -447,6 +533,7 @@
 
   .terminal-statusline {
     position: relative;
+    z-index: 5;
     display: inline-block;
     width: max-content;
     min-width: 100%;
@@ -456,6 +543,7 @@
     font-size: .96rem;
     white-space: nowrap;
     animation: statuslineSettle 900ms ease-out both;
+    transition: filter 280ms ease, text-shadow 280ms ease;
   }
 
   .terminal-statusline::before {
@@ -472,9 +560,21 @@
 
   .terminal-statusline .s-ctx,
   .terminal-statusline .s-add,
-  .terminal-statusline .s-rm {
+  .terminal-statusline .s-rm,
+  .terminal-statusline [data-status-part] {
     display: inline-block;
-    transition: color .15s ease;
+    border-radius: 4px;
+    transition: color .15s ease, background .18s ease, box-shadow .18s ease, transform .18s ease;
+  }
+
+  .terminal-statusline.is-locked {
+    filter: drop-shadow(0 0 10px rgba(85, 219, 230, .18));
+  }
+
+  .terminal-statusline [data-status-part].is-receiving {
+    background: rgba(85, 219, 230, .12);
+    box-shadow: 0 0 18px rgba(85, 219, 230, .2);
+    transform: translateY(-1px);
   }
 
   /* 计数期间的微光 */
@@ -834,6 +934,9 @@
     .hero { gap: 28px; padding-bottom: 36px; }
     .signal-strip, .feature-grid, .swatches { grid-template-columns: 1fr; }
     .terminal-body { padding: 20px; font-size: .78rem; }
+    .compression-stage { inset: 20px 20px 78px; }
+    .compression-scanline { left: 20px; right: 20px; }
+    .signal-fragment { display: none; }
     .terminal { min-height: 420px; }
     .terminal-body { min-height: 372px; }
     .terminal-grid { min-width: 520px; }

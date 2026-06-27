@@ -59,6 +59,15 @@
             <span class="terminal-title">zsh - claude-code-balanced-statusline</span>
           </div>
           <div class="terminal-body">
+            <div class="compression-stage" id="compressionStage" aria-hidden="true">
+              <div class="signal-fragment signal-project" data-target="dir" style="--fx: 8%; --fy: 7%; --accent: var(--yellow);">project: claude-code-balanced-statusline</div>
+              <div class="signal-fragment signal-branch" data-target="branch" style="--fx: 48%; --fy: 16%; --accent: var(--green);">git: feature/v1.1.0 *</div>
+              <div class="signal-fragment signal-ctx" data-target="ctx" style="--fx: 22%; --fy: 34%; --accent: var(--cyan);">context: 3%</div>
+              <div class="signal-fragment signal-diff" data-target="add" style="--fx: 59%; --fy: 42%; --accent: var(--green);">diff: +213 / -47</div>
+              <div class="signal-fragment signal-model" data-target="model" style="--fx: 12%; --fy: 58%; --accent: var(--soft);">model: deepseek-v4-pro</div>
+              <div class="signal-fragment signal-effort" data-target="effort" style="--fx: 63%; --fy: 66%; --accent: var(--yellow);">effort: max</div>
+            </div>
+            <div class="compression-scanline" id="compressionScanline" aria-hidden="true"></div>
             <div class="terminal-grid" id="terminalLog">
               <div class="terminal-line command-line"><span class="prompt">~/code/my-project $</span> <span class="cmd">claude</span></div>
               <div class="terminal-line muted">Loaded project settings from ~/.claude/settings.json</div>
@@ -67,12 +76,12 @@
               <div class="terminal-line is-live"><span id="typing"></span><span class="cursor"></span></div>
             </div>
             <div class="terminal-statusline" id="terminalStatusline" aria-label="终端状态栏示例">
-              <span class="s-dir">claude-code-balanced-statusline</span>
-              &nbsp;&nbsp;<span class="s-branch" id="statusBranch">[feature/v1.1.0]*</span>
-              &nbsp;&nbsp;<span class="s-label">Ctx:</span>&nbsp;<span class="s-ctx" id="statusCtx">3%</span>
-              &nbsp;&nbsp;<span class="s-add" id="statusAdd">+213</span><span class="s-label">/</span><span class="s-rm" id="statusRm">-47</span>
-              &nbsp;&nbsp;<span class="s-model">deepseek-v4-pro</span>
-              &nbsp;&nbsp;<span class="s-effort">[max]</span>
+              <span class="s-dir" data-status-part="dir">claude-code-balanced-statusline</span>
+              &nbsp;&nbsp;<span class="s-branch" id="statusBranch" data-status-part="branch">[feature/v1.1.0]*</span>
+              &nbsp;&nbsp;<span class="s-label">Ctx:</span>&nbsp;<span class="s-ctx" id="statusCtx" data-status-part="ctx">3%</span>
+              &nbsp;&nbsp;<span class="s-add" id="statusAdd" data-status-part="add">+213</span><span class="s-label">/</span><span class="s-rm" id="statusRm" data-status-part="rm">-47</span>
+              &nbsp;&nbsp;<span class="s-model" data-status-part="model">deepseek-v4-pro</span>
+              &nbsp;&nbsp;<span class="s-effort" data-status-part="effort">[max]</span>
             </div>
           </div>
         </div>
