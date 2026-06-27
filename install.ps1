@@ -96,3 +96,6 @@ Write-Host ""
 Write-Host "运行时依赖:" -ForegroundColor Gray
 Write-Host "  jq  — JSON 解析（状态栏脚本内部使用）" -ForegroundColor Gray
 Write-Host "  git — 分支名和修改状态展示（可选）" -ForegroundColor Gray
+Write-Host ""
+Write-Host "提示:" -ForegroundColor Gray
+Write-Host "  如果使用 ccswitch/CC Switch 等配置切换器，请把 statusLine 同步到每个 profile，或让切换器保留该字段。" -ForegroundColor Gray

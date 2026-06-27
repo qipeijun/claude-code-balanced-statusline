@@ -66,6 +66,26 @@ $env:CLAUDE_STATUSLINE_RAW_BASE="https://gitee.com/qipeijun/claude-code-balanced
 
 安装器会自动备份旧文件，把脚本安装到稳定的用户数据目录，并只追加 `statusLine` 配置到 Claude Code 的 `settings.json`，不动你已有的其他字段。
 
+### 与 ccswitch / 配置切换器共存
+
+`statusLine` 是 Claude Code 配置的一部分。安装器会写入当前活动的 `~/.claude/settings.json`，但如果你使用 ccswitch、CC Switch 或其他配置切换器，它们在切换 profile 时可能会重写这份文件；目标 profile 里没有 `statusLine` 时，状态栏就会消失。
+
+解决方式二选一：
+
+1. 让配置切换器在切换时保留已有的 `statusLine` 字段。
+2. 把下面这段配置加入每一个 Claude Code profile/template：
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "/Users/你的用户名/.local/share/claude-code-balanced-statusline/statusline.sh"
+  }
+}
+```
+
+每次切换后重新运行安装器只能临时恢复，不是根治方案。
+
 **手动安装**：
 
 ```bash
